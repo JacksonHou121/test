@@ -1,0 +1,237 @@
+<html>
+
+<head>
+    <meta chartset="utf-8">
+    <title>可视化echarts图表</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="可视化.css">
+    <style>
+        .contains {
+            background: #000a2d;
+            height: 100%;
+            width: 100%;
+        }
+
+        .header {
+            height: 80px;
+            background-size: 100% 100%;
+            background: url('./images/headerbg.png') no-repeat center center;
+        }
+
+        .header .title {
+            display: flex;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 2.8rem;
+            align-items: center;
+            height: 100%;
+        }
+
+        .time {
+            margin-right: 10px;
+            font-size: 1.8rem;
+            margin-top: -4rem;
+            color: #fff;
+            float: right;
+        }
+
+        .time .label {
+            font-weight: 300
+        }
+
+        .container {
+            height: calc(100vh - 80px);
+            width: 100%;
+        }
+
+        .item_left,
+        .item_center,
+        .item_right {
+            height: 100%;
+            padding-right: 10px;
+            padding-left: 10px;
+            display: flex;
+        }
+
+        .c1,
+        .c2,
+        .c3 {
+            display: flex;
+            flex-direction: column;
+            align-content: stretch;
+            justify-content: stretch;
+            width: 100%;
+        }
+
+        .industryChartDiv,
+        .changeChartDiv,
+        .ageChartDiv,
+        .powerChartDiv,
+        .playChatDiv,
+        .areaChartDiv {
+            flex: 1;
+            margin: 10px 0px;
+        }
+
+        .totalInfoDiv {
+            flex: 1;
+            margin: 10px 0px;
+            background: #0c1a50;
+        }
+
+        .moveMapDiv {
+            flex: 4;
+            margin: 10px 0px;
+        }
+
+        /*.industryChartDiv,.powerChartDiv,.changeChartDiv,.ageChartDiv,.playChatDiv,.areaChartDiv{background:url('./images/partbg1.png');background-repeat: repeat;
+    background-position: center;}*/
+        .border {
+            border: 2px solid #02a6b5;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            margin: auto;
+        }
+
+        /* .border:before {
+            content: '';
+            position: absolute;
+            width: 88%;
+            bottom: -2px;
+            top: -2px;
+            left: 6%;
+            border-bottom: 2px solid #0b3146;
+            border-top: 2px solid #0b3146;
+        }
+
+        .border:after {
+            content: '';
+            position: absolute;
+            height: 76%;
+            left: -2px;
+            right: -2px;
+            top: 12%;
+            border-left: 2px solid #0b3146;
+            border-right: 2px solid #0b3146;
+        } */
+        .moveMapDiv1 {
+            width: 75%;
+        }
+
+        @media (max-width:1200px) {
+            .moveMapDiv1 {
+                width: 120%;
+            }
+        }
+    </style>
+</head>
+
+<body class="contains">
+    <div class="header">
+        <div class="title">数据可视化-Echarts</div>
+        <div class="time" style="padding:0 10px ;">当前时间：<label></label></div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 item_left">
+                <div class="c1">
+                    <div class="industryChartDiv">
+                        <div class="border">
+                            <div style="width: 100%; height: 100%;" id="industryBar"></div>
+                        </div>
+                    </div>
+                    <div class="changeChartDiv">
+                        <div class="border">
+                            <div style="width: 100%; height: 100%;" id="changeLine"></div>
+                        </div>
+                    </div>
+                    <div class="ageChartDiv">
+                        <div class="border">
+                            <div style="width: 100%; height: 100%;" id="agePie"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 item_center">
+                <div class="c2">
+                    <div class="totalInfoDiv">
+                        <div id="title" style="width: 100%; height: 100%;"></div>
+                    </div>
+                    <div class="moveMapDiv">
+                        <div class="moveMapDiv1"><img src="./images/centerbg3.png"
+                                style="border: none; max-width: 100%;"> </div>
+                        <div style="width: 100%; height: 100%;z-index: 99;" id="moveMapChart">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 item_right">
+                <div class="c3">
+                    <div class="powerChartDiv">
+                        <div class="border">
+                            <div id="skillAcquisitionBar" style="width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+                    <div class="playChatDiv">
+                        <div class="border">
+                            <div id="playCounts" style="width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+                    <div class="areaChartDiv">
+                        <div class="border">
+                            <div id="roseChart" style="width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./visualizationChart-master/js/echarts.min.js"></script>
+    <script src="./可视化.js"></script>
+    <script src="./china.js"></script>
+    <script>
+        setInterval(() => {
+            var times = new Date()
+            var m = times.getMonth() + 1
+            var d = times.getDate()
+            var h = times.getHours()
+            var min = times.getMinutes()
+            var s = times.getSeconds()
+            if (m < 10) {
+                m = "0" + m
+            }
+            if (d < 10) {
+                d = "0" + d
+            }
+            if (h < 10) {
+                h = "0" + h
+            }
+            if (min < 10) {
+                min = "0" + min
+            }
+            if (s < 10) {
+                s = "0" + s
+            }
+            document.querySelector(".time label").innerHTML =
+                times.getFullYear() + "-" + m + "-" + d + " " + h + ":" + min + ":" + s
+        }, 1000)
+    </script>
+    <!-- <script>
+        myChart3 = echarts.init(document.getElementById('industryBar'));
+        
+
+        myChart3.setOption(option, true);	    // 使用刚指定的配置项和数据显示图表。
+        $(document).ready(function () {
+            myChart3.resize();
+        })
+        window.addEventListener("resize", function () {
+            myChart3.resize();
+        });
+    </script> -->
+</body>
+
+</html>
