@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<style>
+    .hed {
+        width: 100%;
+        height: 1080px;
+        padding-top: 10px;
+        background-repeat: no-repeat;
+        background-image: url("./img/intro.png");
+        background-size: 113%;
+        background-position-x: 100%;
+        margin-bottom: 0;
+    }
+
+    .navbar-default {
+        background-color: transparent;
+        border-color: transparent;
+        font-size: 20px;
+    }
+
+    .navbar-brand {
+        display: flex;
+        padding: 0;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .navbar-brand h1 {
+        color: white;
+    }
+
+    .navbar-brand img {
+        width: 45px;
+        height: 55px;
+    }
+
+    .navbar-default .navbar-nav>li>a {
+        background-color: transparent;
+        color: white;
+    }
+
+    .navbar-default .navbar-nav>li.lactive a {
+        color: #777;
+    }
+
+    .box {
+        color: #ffff00;
+        border: 2px solid #ffff00;
+        padding: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-radius: 15px;
+    }
+
+    .hed .text {
+        color: white;
+        margin-top: 25%;
+    }
+
+    .hed .text h1 {
+        font-size: 60px;
+
+    }
+
+    .hed .text h1 span {
+        color: #0081ff;
+    }
+
+    .hed .text h3 {
+        font-size: 40px;
+
+    }
+
+    .hed .text p {
+        font-size: 24px;
+        width: 50%;
+        color: #636363;
+        margin-bottom: 80px;
+    }
+
+    .hed .text a {
+
+        background-color: rgba(146, 146, 146, 0.3);
+        text-align: center;
+        color: white;
+        font-family: 'Montserrat Bold', sans-serif;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        padding-right: 40px;
+        padding-left: 40px;
+        border-radius: 30px;
+        text-decoration: none;
+    }
+
+    .box {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        transform: translate(0, 25%);
+
+    }
+
+    .box3 img {
+        width: 100px;
+        height: 60px;
+        margin-right: 10px;
+    }
+
+    .box3 {
+        display: flex;
+        width: 100%;
+    }
+
+
+    .box3 h1 {
+        margin: 0;
+        padding: 0;
+        font-size: 24px;
+        color: black;
+        width: 80%;
+    }
+
+    .box3 p {
+        width: 80%;
+    }
+
+    @media (min-width: 0px) {
+        .hed {
+            width: 100%;
+            height: 1080px;
+            padding-top: 10px;
+            background-repeat: no-repeat;
+            background-image: url("./img/intro.png");
+            background-size: 400%;
+            background-position-x: 100%;
+            margin-bottom: 0;
+        }
+
+        .hed .text {
+            color: white;
+            margin-top: 40%;
+        }
+
+        .con {
+            width: 100%;
+            height: 700px;
+            text-align: left;
+            background-color: #0081ff;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box3 img {
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
+        }
+
+        .box3 {
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .box3 .rt {
+            width: 50%;
+        }
+
+        .box3 p {
+            width: 80%;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .box3 .rt {
+            width: 100%;
+        }
+
+        .box {
+            position: absolute;
+            top: 0;
+            right: 0;
+            transform: translate(0, 25%);
+
+        }
+
+        .box3 img {
+            width: 100px;
+            height: 60px;
+            margin-right: 10px;
+        }
+
+        .box3 {
+            display: flex;
+            width: 100%;
+        }
+
+
+        .box3 h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            color: black;
+            width: 80%;
+        }
+
+        .box3 p {
+            width: 80%;
+        }
+
+        .con {
+            width: 100%;
+            height: 700px;
+            text-align: left;
+            background-color: #0081ff;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hed {
+            width: 100%;
+            height: 1080px;
+            padding-top: 10px;
+            background-repeat: no-repeat;
+            background-image: url("./img/intro.png");
+            background-size: 250%;
+            background-position-x: 100%;
+            margin-bottom: 0;
+        }
+
+        .hed .text {
+            color: white;
+            margin-top: 35%;
+        }
+
+
+        .navbar-collapse {
+            position: relative;
+        }
+
+        .navbar-nav {
+            width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+            float: none;
+            display: flex;
+        }
+
+        .navbar-default .navbar-nav>li>a {
+            padding: 15px 5px;
+        }
+
+        .navbar-default {
+            font-size: 15px;
+        }
+
+    }
+
+    @media (min-width: 992px) {
+        .navbar-collapse {
+            position: relative;
+        }
+
+        .con {
+            width: 100%;
+            height: 550px;
+            text-align: left;
+            background-color: #0081ff;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hed {
+            width: 100%;
+            height: 1080px;
+            padding-top: 10px;
+            background-repeat: no-repeat;
+            background-image: url("./img/intro.png");
+            background-size: 200%;
+            background-position-x: 100%;
+            margin-bottom: 0;
+        }
+
+        .navbar-header {
+            position: relative;
+        }
+
+        .navbar-brand {
+            position: absolute;
+            left: 0;
+        }
+
+
+        .navbar-default {
+            font-size: 20px;
+        }
+
+        .navbar-nav {
+            width: 55%;
+            margin-left: auto;
+            margin-right: auto;
+            float: none;
+        }
+
+        .box {
+            position: absolute;
+            top: 0;
+            /* margin-left: 250px; */
+        }
+    }
+
+    @media (min-width:1200px) {
+        .hed {
+            width: 100%;
+            height: 870px;
+            padding-top: 10px;
+            background-repeat: no-repeat;
+            background-image: url("./img/intro.png");
+            background-size: 130%;
+            background-position-x: 100%;
+            margin-bottom: 0;
+        }
+
+
+        .hed .text {
+            color: white;
+            margin-top: 25%;
+        }
+
+        .con {
+            width: 100%;
+            height: 515px;
+            text-align: left;
+            background-color: #0081ff;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    @media (min-width:1400px) {
+        .hed {
+            width: 100%;
+            height: 1080px;
+            padding-top: 10px;
+            background-repeat: no-repeat;
+            background-image: url("./img/intro.png");
+            background-size: 130%;
+            background-position-x: 100%;
+            margin-bottom: 0;
+        }
+
+    }
+
+    /* .con {
+        width: 100%;
+        height: 515px;
+        text-align: left;
+        background-color: #0081ff;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    } */
+
+
+
+    .con .right p {
+        width: 80%;
+        font-size: 20px;
+        padding-top: 50px;
+        padding-bottom: 90px;
+    }
+
+    .con .left p {
+        font-size: 42px;
+    }
+
+    .ic {
+        background-color: #007af2;
+        padding: 80px 0;
+        color: white;
+    }
+
+    .if {
+        background-color: #0081ff;
+        padding: 80px 0;
+    }
+
+    .if .dd {
+        width: 90%;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .if .dd img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .if .tc {
+        padding: 0;
+        margin: 0;
+    }
+
+    .if .tc .icon {
+        padding: 20px;
+        width: 30px;
+        margin: 0 15.5px;
+        font-size: 30px;
+    }
+
+    .if .col-sm-7 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding-top: 20px;
+        color: white;
+    }
+
+
+    .por {
+        padding: 80px 15px;
+        width: 100%;
+    }
+
+    .por .l {
+        text-align: left;
+    }
+
+    @media (min-width:0px) {
+        .por .view {
+            width: 235px;
+            height: 70px;
+            background-color: #1cbbb4;
+            color: white;
+            padding: 25px 50px;
+            text-align: center;
+            border-radius: 35px;
+            float: right;
+        }
+    }
+
+    @media (min-width:768px) {
+        .por .row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .por .r {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .por .view {
+            width: 235px;
+            height: 70px;
+            background-color: #1cbbb4;
+            color: white;
+            padding: 25px 50px;
+            text-align: center;
+            border-radius: 35px;
+            float: none;
+        }
+    }
+
+    img {
+        vertical-align: middle;
+        border-style: none;
+    }
+
+    .img-fluid {
+        width: 100%;
+        height: auto;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+
+    .image .row {
+        width: 100%;
+        margin: 0;
+    }
+
+    .image .container {
+        width: 100%;
+        padding: 0;
+    }
+
+    .image .col-sm-6 {
+        padding: 0;
+    }
+
+    .clients {
+        background-color: #1f1f1f;
+        text-align: center;
+        color: white;
+    }
+
+    .clients .mx-auto {
+        padding-top: 80px;
+    }
+
+    .clients .auto-people {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: left;
+    }
+
+    .clients .auto-people .text {
+        margin-left: 40px;
+    }
+
+
+
+    .clients .auto-people .text .name {
+        color: #ffff00;
+    }
+
+    .clients .ico img {
+        padding: 80px 30px;
+    }
+
+    .Blog {
+        text-align: center;
+        background-color: #f8f8f8;
+
+    }
+
+    @media (max-width:768px) {
+
+        .container {
+            width: 80%;
+        }
+
+
+    }
+
+    .Blog .bg {
+        background-image: url(./img/bgphoto.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .Blog .bg .read {
+        text-align: center;
+        margin: 40px 0 90px 0;
+        color: black;
+        background-color: #ffff00;
+        margin-top: 40px;
+        padding: 20px;
+        font-weight: bold;
+        width: 40%;
+        border-radius: 35px;
+    }
+
+    .Blog .sep {
+        background-image: url(./img/standardformat.png);
+        text-align: left;
+        padding-left: 50px;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .Blog .sep2 {
+        background-image: url(./img/videoformat.png);
+        text-align: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .foot {
+        background-color: #1d1c1e;
+        color: white;
+    }
+
+    .foot .one input {
+        width: 100%;
+        height: 40px;
+        color: black;
+        outline: none;
+    }
+
+    .foot textarea {
+        outline: none;
+    }
+
+    .foot .fo {
+        background-color: black;
+        color: gray;
+    }
+
+    @media (max-width:768px) {
+        .foot .fo .rig {
+            text-align: right;
+        }
+    }
+</style>
+
+<body>
+    <!-- 导航 + banner -->
+    <div class="hed">
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#"><img src="./img/logo (1).png" alt="">
+                            <h1>albedo</h1>
+                        </a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="lactive"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                            <li><a href="#">Intro</a></li>
+                            <li><a href="#">About me</a></li>
+                            <li><a href="#">Portfolio</a></li>
+                            <li><a href="#">Clients</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                        <div class="box">Buy it Now! </div>
+
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+            <div class="text">
+                <h3>Hi there!</h3>
+                <h1>My Name is <span>Daniel</span> </h1>
+                <h3>I’m a Graphic Designer</h3>
+                <p>Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum parum,
+                    anteposuerit etiam
+                    processus dynamicus.</p>
+                <a href="#">About Me</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="con">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 left">
+                    <h1>About me...</h1>
+                    <p>Investigationes demonstraverunt
+                        lectores legere me lius quod ii legunt saepius.</p>
+                </div>
+                <div class="col-xs-12 col-sm-6 right">
+                    <p>Qestigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam
+                        processus dynamicus,
+                        qui sequitur mutationem consuetudium lectorum est notare quam littera gothica, quam nunc putamus
+                        est
+                        notare quam littera
+                        gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula
+                        quarta.
+                        <br>
+                        <br>
+                        Eodem modo typi, qui nunc nobis videntur parum.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 三个图标 -->
+    <div class="ic">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 ">
+                    <div class="box3">
+                        <img src="./img/icon1.png" alt="">
+                        <div class="rt">
+                            <h1>Web Design & User Interface</h1>
+                            <p>Investigationes demonstraverunt lectores
+                                legere me eum iriure dolor in hendrerit.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 ">
+                    <div class="box3">
+                        <img src="./img/icon1.png" alt="">
+                        <div class="rt">
+                            <h1>Web Design & User Interface</h1>
+                            <p>Investigationes demonstraverunt lectores
+                                legere me eum iriure dolor in hendrerit.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 ">
+                    <div class="box3">
+                        <img src="./img/icon1.png" alt="">
+                        <div class="rt">
+                            <h1>Web Design & User Interface</h1>
+                            <p>Investigationes demonstraverunt lectores
+                                legere me eum iriure dolor in hendrerit.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 10个小图标 -->
+    <div class="if">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-7" style="padding-top: 50px; font-size: 20px;">
+                    If you like my works Follow me:
+                </div>
+                <div class="col-sm-5 tc">
+                    <div class="dd">
+                        <div class="icon"><img src="./img/facebook.png" alt=""></div>
+                        <div class="icon"><img src="./img/推特 twitter.png" alt=""></div>
+                        <div class="icon"><img src="./img/google plus.png" alt=""></div>
+                        <div class="icon"><img src="./img/instagram.png" alt=""></div>
+                        <div class="icon"><img src="./img/篮球.png" alt=""></div>
+                        <div class="icon"><img src="./img/behance.png" alt=""></div>
+                        <div class="icon"><img src="./img/Beats.png" alt=""></div>
+                        <div class="icon"><img src="./img/ins.png" alt=""></div>
+                        <div class="icon"><img src="./img/icon-social-tumblr.png" alt=""></div>
+                        <div class="icon"><img src="./img/youtube.png" alt=""></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- portfolio -->
+    <div class="por">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-7 l">
+                    <h2 style="color: #8799a3;font-size: 36px;">Portfolio...</h2>
+                    <h1 style="font-size: 42px;">I Make Beautiful Things!</h1>
+                </div>
+                <div class="col-xs-12 col-sm-5 r">
+                    <div class="view">View All Projects</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 图片 -->
+    <div class="image">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <img src="./img/project01.png" class="img-fluid" alt="">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6"><img src="./img/project02.png" class="img-fluid" alt=""></div>
+                        <div class="col-xs-12 col-sm-6"><img src="./img/project03.png" class="img-fluid" alt=""></div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            <img src="./img/project04.png" class="img-fluid" alt="">
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <img src="./img/project05.png" class="img-fluid" alt="">
+                            <img src="./img/project06.png" class="img-fluid" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- clients -->
+    <div class="clients">
+        <div class="container">
+            <h2 style="font-size: 36px;">Clients...</h2>
+            <h1 style="font-size: 42px;">What Customers Say:</h1>
+            <div class="mx-auto">
+                <p style="font-size: 24px;">Investigationes demonstraverunt lectores legere me lius quod ii legunt
+                    saepius nunc putamus parum
+                    claram.</p>
+                <div class="auto-people">
+                    <img style="width: 60px;height: 60px;" src="./img/profile.png" alt="">
+                    <div class="text">
+                        <h4 class="name">Christina Smith</h4>
+                        <h4 style="color: grey;">Marketing Envato Pty Ltd.</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="ico">
+                <img src="./img/logo01.png" alt="">
+                <img src="./img/logo02.png" alt="">
+                <img src="./img/logo03.png" alt="">
+                <img src="./img/logo04.png" alt="">
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog -->
+    <div class="Blog">
+        <div class="container">
+            <h1 .he style="color: #8799a3; font-size: 36px;text-align: left;">Blog...</h1>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6" style="text-align: left;">
+                    <h1 style="font-size: 42px;padding-top: 30px;">Do Not Miss the Useful Articles</h1>
+                    <p style="margin-bottom: 1rem;font-size: 16px;">Mirum est notare quam littera gothica, quam nunc
+                        parum claram...</p>
+                    <div style="background-color: #0081ff; text-align: center;color: white;">
+                        <p style="padding-top: 35px;">6 October</p>
+                        <h3 style="padding: 10px;line-height: 4rem;font-size: 26px;">“Eodem modo typi, qui nunc nobis
+                            videntur parum
+                            clari, sollemnes
+                            parum”</h3>
+                        <p style="color: #ffff00;padding-bottom: 50px;">Jonathan Miller</p>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 bg">
+                    <div style="padding-left: 50px;color: white;text-align: left;">
+                        <h3 style="color: #8799a3;font-size: 20px;padding-top: 100px;">9 October</h3>
+                        <h1 style="font-size: 32px;">Gallery Post Format</h1>
+                        <p style="font-size: 16px;margin-bottom: 1rem;">Investigationes demonstraverunt lectores legere
+                            me
+                            lius quod ii legunt saepius. Claritas est etiam
+                            processus dynamicus.</p>
+                        <div class="read">Read More </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 ">
+                            <div class="sep">
+                                <p style="color: #bbc7cd;padding-top: 40px;">3 September</p>
+                                <p style="font-size: 24px;padding-bottom: 50px;">Standard Post Format</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6" style="color: white;text-align: center;">
+                            <div class="sep2">
+                                <p style="padding-top: 50px;">20 September</p>
+                                <p style=" padding: 25px 0 50px 0;font-size: 24px;">Video Post Format</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="jun" style="background-color: white; padding: 30px 0 0 40px;text-align: left;">
+                                <p style="color: #bbc7cd;font-size: 16px;">23 Junes</p>
+                                <p style="font-size: 25px;  font-weight: bold;">Standard Post Format without Preview
+                                    Img</p>
+                                <p style="color: #636363;font-size: 18px;">Qui nunc nobis videntur parum clari,
+                                    sollemnes legere.</p>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-12 col-sm-4" style="text-align: center;">
+                            <p style="padding: 85px 0;background-color: #e91d62;">View all</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="foot">
+        <div class="container">
+            <h1 style="font-size: 36px;padding-top: 190px;">Contacts...</h1>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <h1 style="font-size: 42px;margin-bottom: 40px;">Contact Information</h1>
+                    <p>
+                        <span style="color: grey;">You can find me here:</span>
+                        <br>
+                        795 South Park Avenue, Melbourne, Australia
+                        <br>
+                        <br>
+                        <span style="color: grey;">Phone:</span>8 800 567.890.11
+                        <br>
+                        <br>
+                        <span style="color: grey;">Monday t Friday from</span>9.00 am to 8.00 pm EST
+                        <br>
+                        <span style="color: grey;">Saturday:</span>from 10.00 am to 6.00 pm EST
+                        <br>
+                        <br>
+                        <a href="#">hello@albedo.com</a><br>
+                        <a href="#">support@albedo.com</a>
+                    </p>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <h1 style="font-size: 42px;margin-bottom: 40px;">Get In Touch</h1>
+                    <p style="color: grey;">You can contact with me using this form.</p>
+                    <form action="#">
+                        <div class="row one" style="padding-bottom: 30px;">
+                            <div class="col-xs-6"><input type="text" placeholder="Your Name"></div>
+                            <div class="col-xs-6"><input type="text" placeholder="Your Email Adress"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <textarea style="width: 100%;color: black;" cols="15" rows="4"
+                                    placeholder="Tape in your message"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12" style="padding-top: 30px;">
+                                <input type="submit" value="send" style="width: 100%;">
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="fo">
+            <div class="container">
+                <div class="row" style=" text-align: center;">
+                    <div class="col-xs-12 col-sm-6" style="padding: 50px 0;">© 2016 Albedo —— hjj</div>
+                    <div class="col-xs-12 col-sm-6 rig" style="padding: 50px 0;">Back to top</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

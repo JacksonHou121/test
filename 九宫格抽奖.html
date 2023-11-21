@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="fa">
+        <div class="box">
+            <div class="main">
+                <div class="center"></div>
+                <ul></ul>
+            </div>
+        </div>
+    </div>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .fa {
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(to right, #83f5f5, #86aef8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            width: 380px;
+            height: 380px;
+            background-color: lightblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url(./img/k1.png);
+            background-size: 100% 100%;
+        }
+
+        .box2 {
+            background-image: url(./img/k2.png);
+        }
+
+        .main {
+            width: 340px;
+            height: 340px;
+            background-color: rgb(48, 175, 217);
+            position: relative;
+        }
+
+        .center {
+            width: 100px;
+            height: 100px;
+            background-image: url(./img/bg1.png);
+            background-size: 100% 100%;
+            position: absolute;
+            left: 118px;
+            top: 116px;
+        }
+
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        li {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            background-image: url("./img/bg2.png");
+            background-size: 100% 100%;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        li.on {
+            background-image: url("./img/bg1.png");
+        }
+
+        li img {
+            width: 50%;
+        }
+    </style>
+
+    <script>
+        var arr = [
+            {
+                icon: "img/j1.png",
+                text: "谢谢参与",
+                order: 1,
+            },
+            {
+                icon: "img/j2.png",
+                text: "美女一个",
+                order: 2,
+            },
+            {
+                icon: "img/j1.png",
+                text: "宝马一辆",
+                order: 3,
+            },
+            {
+                icon: "img/j2.png",
+                text: "单车一辆",
+                order: 6,
+            },
+            {
+                icon: "img/j1.png",
+                text: "鸡蛋一蓝",
+                order: 9,
+            },
+            {
+                icon: "img/j2.png",
+                text: "500红包",
+                order: 8,
+            },
+            {
+                icon: "img/j1.png",
+                text: "靓号一个",
+                order: 7,
+            },
+            {
+                icon: "img/j2.png",
+                text: "鲜花一蓝",
+                order: 4,
+            },
+        ];
+        var ulDom = document.querySelector("ul");
+        arr.forEach(function (event) {
+            var liDom = document.createElement("li");
+            var spanDom = document.createElement("span");
+            spanDom.innerHTML = event.text;
+            var imgDom = document.createElement("img");
+            imgDom.src = event.icon;
+            liDom.appendChild(imgDom);
+            liDom.appendChild(spanDom);
+            ulDom.appendChild(liDom);
+
+            liDom.style.top = Math.floor((event.order - 1) / 3) * 100 + (Math.floor((event.order - 1) / 3) + 1) * 10 + "px";
+            liDom.style.left = ((event.order - 1) % 3) * 100 + (((event.order - 1) % 3) + 1) * 10 + "px";
+        })
+
+        var liDoms = ulDom.querySelectorAll("li");
+        var timer;
+        var i = -1;
+
+        function zhuan(ms, n) {
+            clearInterval(timer)
+            timer = setInterval(function () {
+                i++;
+                i = i > liDoms.length - 1 ? 0 : i;
+                if (i === n) {
+                    clearInterval(timer)
+                    setTimeout(() => {
+                        window.alert('恭喜你获得' + arr[n].text + '!')
+                    }, 1000);
+                }
+
+                liDoms.forEach(function (event, index) {
+                    if (index == i) {
+                        event.classList.add("on")
+
+                    } else {
+                        event.classList.remove("on")
+                    }
+                })
+            }, ms)
+        }
+
+        function start(n) {
+            zhuan(200);
+            setTimeout(function () {
+                zhuan(100);
+                setTimeout(function () {
+                    zhuan(30);
+                    setTimeout(function () {
+                        zhuan(100);
+                        setTimeout(function () {
+                            zhuan(200);
+                            setTimeout(function () {
+                                zhuan(300, n)
+                            }, 2000)
+                        }, 2000)
+                    }, 2000)
+                }, 2000)
+            }, 2000)
+        }
+
+        document.querySelector(".center").onclick = function () {
+            start(Math.floor(Math.random() * liDoms.length));
+        };
+        setInterval(function () {
+            document.querySelector(".box").classList.toggle("box2");
+        }, 200)
+
+
+        var boxDom = document.querySelector(".box");
+        boxDom.oncontextmenu = function (event) {
+            event.preventDefault();
+        };
+        boxDom.onmousedown = function (event) {
+            console.log(event.which);
+        }
+    </script>
+</body>
+
+</html>

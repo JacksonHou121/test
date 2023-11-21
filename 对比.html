@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对比</title>
+    <style>
+        body {
+            /* background: #ffab91; */
+            background-image: linear-gradient(to right, #ffa9a4, #ad96ff);
+
+        }
+
+        .stage {
+            width: 500px;
+            height: 500px;
+            position: relative;
+            margin: 0 auto;
+            box-shadow: 0 0 5px 0 red;
+        }
+
+        .c {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-repeat: no-repeat;
+            background-position: left top;
+            background-size: auto 100%;
+        }
+
+        .c3 {
+            background-image: url(./img/2ppni55.jpg);
+            z-index: 3;
+            width: 25%;
+        }
+
+        .c2 {
+            background-image: url(./img/15i68sz.jpg);
+            z-index: 2;
+            width: 60%;
+        }
+
+        .c1 {
+            background-image: url(./img/2eo86ew.jpg);
+            z-index: 1;
+        }
+
+        input {
+            position: absolute;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            z-index: 999;
+            height: 50%;
+            opacity: 0;
+        }
+
+        .stage input.i1 {
+            top: 0;
+            left: 0;
+        }
+
+        .stage input.i2 {
+            left: 0;
+            bottom: 0;
+        }
+
+        .stage .line {
+            width: 10px;
+            height: 100%;
+            background-color: rgb(255, 159, 85);
+            position: absolute;
+            top: 0;
+            left: 25%;
+            z-index: 997;
+            margin-left: -5px;
+        }
+
+        .stage .line1 {
+            left: 25%;
+        }
+
+        .stage .line2 {
+            left: 60%;
+        }
+
+        .icona {
+            width: 50px;
+            height: 50px;
+            margin: 0;
+            padding: 5px;
+            background-color: rgb(243, 59, 59);
+            border-radius: 50%;
+            position: absolute;
+            z-index: 998;
+            left: -25px;
+            top: 25%;
+        }
+
+        .iconb {
+            width: 50px;
+            height: 50px;
+            margin: 0;
+            padding: 5px;
+            background-color: rgb(243, 59, 59);
+            border-radius: 50%;
+            position: absolute;
+            z-index: 998;
+            left: -25px;
+            bottom: 25%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stage">
+        <div class="c c3"></div>
+        <div class="c c2"></div>
+        <div class="c c1"></div>
+
+        <input class="i1" type="range" value="25" min="0" max="100" step="1" />
+        <input class="i2" type="range" value="60" min="0" max="100" step="1" />
+
+        <div class="line line1">
+            <svg class="icona" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+                <polygon points="0 50 37 68 37 32 0 50" style="fill: #ffab91"></polygon>
+                <polygon points="100 50 64 32 64 68 100 50" style="fill: #ffab91"></polygon>
+            </svg>
+        </div>
+        <div class="line line2">
+            <svg class="iconb" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+                <polygon points="0 50 37 68 37 32 0 50" style="fill: #ffab91"></polygon>
+                <polygon points="100 50 64 32 64 68 100 50" style="fill: #ffab91"></polygon>
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        var i1Dom = document.querySelector(".i1");
+        var i2Dom = document.querySelector(".i2");
+
+        //滑动条改变
+        function i1Change(value) {
+            document.querySelector(".c3").style.width = value + "%"
+            document.querySelector(".line1").style.left = value + "%"
+        }
+
+        function i2Change(value) {
+            document.querySelector(".c2").style.width = value + "%"
+            document.querySelector(".line2").style.left = value + "%"
+        }
+
+        //获取input改变的值
+        i1Dom.oninput = function () {
+            if (this.value * 1 > i2Dom.value * 1) {
+                i2Dom.value = this.value;
+                i2Change(this.value);
+            }
+            i1Change(this.value);
+        }
+
+        i2Dom.oninput = function () {
+            i2Change(this.value);
+            if (this.value * 1 < i1Dom.value * 1) {
+                i1Dom.value = this.value
+                i1Change(this.value);
+            }
+        }
+    </script>
+</body>
+
+</html>

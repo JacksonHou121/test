@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        ul {
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        ul li {
+            list-style: none;
+            overflow: hidden;
+            box-sizing: border-box;
+            transition: all 1s;
+        }
+
+        img {
+            width: 900px;
+        }
+
+        ul li div {
+            width: 100%;
+            height: 100%;
+        }
+
+        .a {
+            background: lightcoral;
+        }
+
+        .b {
+            background: pink;
+        }
+
+        .c {
+            background: skyblue;
+        }
+
+        .d {
+            background: rgb(228, 159, 235);
+        }
+
+        .e {
+            background: #cae7b9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul>
+        </ul>
+    </div>
+
+    <script>
+        var ulsDom = document.querySelector("ul");
+        // var imgsrcDom = ["./img/taikongpiaofu.jpg", "./img/tk.jpg", "./img/yg.jpg"];
+        var imgsrcDom = ["a", "b", "c", 'd', 'e'];
+
+        for (var i = 0; i < imgsrcDom.length; i++) {
+            var li = document.createElement("li")
+            // var img = document.createElement("img")
+            var div = document.createElement("div")
+            div.className = imgsrcDom[i]
+            li.appendChild(div)
+            ulsDom.appendChild(li)
+        }
+
+        var lisDom = document.querySelectorAll("li");
+
+        //调整父盒子初始大小
+        window.onload = window.onresize = function () {
+            for (var i = 0; i < lisDom.length; i++) {
+                lisDom[i].style.width = 20 + 'vw';
+                lisDom[i].style.height = 100 + 'vh'
+            }
+        }
+
+        var divsDom = document.querySelectorAll("li div");
+
+        for (let i = 0; i < divsDom.length; i++) {
+
+            // 鼠标移到图片上的大小
+            divsDom[i].onmouseenter = function () {
+                for (var j = 0; j < divsDom.length; j++) {
+                    lisDom[j].style.width = 20 + "vw";
+                }
+                lisDom[i].style.width = 50 + 'vw'
+
+            }
+            divsDom[i].onmouseleave = function () {
+                for (var z = 0; z < lisDom.length; z++) {
+                    lisDom[z].style.width = 20 + 'vw';
+                }
+            }
+
+        }
+    </script>
+</body>
+
+</html>

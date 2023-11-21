@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .main {
+            width: 500px;
+            height: 500px;
+            background-color: rgb(0, 0, 0);
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .set {
+            width: 400px;
+            height: 50px;
+            margin: 30px 0;
+            border: 2px solid black;
+        }
+
+        .select {
+            width: 300px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        span {
+            display: block;
+            width: 80px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            box-shadow: 0 0 5px 0 rgb(255, 255, 255);
+            background-color: white;
+            cursor: pointer;
+            transition: all .3s;
+
+        }
+
+        .text {
+            width: 400px;
+            height: 300px;
+            background-color: rgb(254, 254, 254);
+            list-style: none;
+            display: flex;
+            /* justify-content: center; */
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input {
+            outline: none;
+            border: none;
+            color: black;
+            text-overflow: ellipsis;
+            box-sizing: border-box;
+        }
+
+        li {
+            width: 300px;
+            height: 20px;
+            line-height: 20px;
+            margin: 10px 0;
+            color: black;
+            background-color: white;
+            vertical-align: middle;
+        }
+
+        .ck {
+            float: left;
+            height: 20px;
+            cursor: pointer;
+            margin: 0 0 0 10px;
+        }
+
+        .up {
+            height: 20px;
+            float: left;
+            margin: 0 10px;
+        }
+
+        .active {
+            height: 20px;
+            float: left;
+            color: gray;
+            text-decoration: line-through;
+            margin: 0 10px;
+
+        }
+
+        .b {
+            background-color: black;
+            color: white;
+        }
+
+        .btn {
+            width: 50px;
+            float: right;
+            cursor: pointer;
+            border: none;
+            margin: 0 10px;
+            background-color: white;
+        }
+
+        .btn:hover {
+            background-color: rgb(226, 219, 219);
+        }
+    </style>
+    <div class="main">
+        <input type="text" class="set" placeholder="  请输入">
+        <div class="select">
+            <span class="all">全部</span>
+            <span class="finish">完成</span>
+            <span class="not">未完成</span>
+        </div>
+        <ul class="text">
+            <li>
+                <input class="ck" type="checkbox">
+                <input class="up" id="zhi" type="text" value="做练习">
+                <button class="btn">删除</button>
+            </li>
+            <li>
+                <input class="ck" type="checkbox" checked>
+                <input class="up" id="zhi" type="text" value="听音乐">
+                <button class="btn">删除</button>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        var inpDom = document.querySelector(".set")
+        var ulDom = document.querySelector(".text")
+        var span = document.querySelectorAll("span")
+        span[0].classList.add("b")
+
+
+
+
+        //筛选
+        function search() {
+            span.forEach((e) => {
+                e.onclick = function () {
+                    var boxs = document.querySelectorAll(".ck")
+                    boxs.forEach((l) => {
+                        for (var i = 0; i < span.length; i++) {
+                            span[i].classList.remove("b")
+                        }
+                        if (e.className == "all") {
+                            e.classList.add("b")
+                            l.parentNode.style.display = "block"
+                        }
+                        else if (e.className == "finish") {
+                            e.classList.add("b")
+                            l.parentNode.style.display = "none"
+                            if (l.checked) {
+                                l.parentNode.style.display = "block"
+                            }
+                        }
+                        else if (e.className == "not") {
+                            e.classList.add("b")
+                            l.parentNode.style.display = "none"
+                            if (l.checked) {
+                            }
+                            else {
+                                l.parentNode.style.display = "block"
+                            }
+                        }
+                    })
+                }
+            })
+        }
+        search()
+
+
+
+        //输入，回车生成事项
+        inpDom.onkeyup = function (e) {
+            if (e.key === "Enter") {
+                if (this.value === "") {
+                }
+                else {
+                    var li = document.createElement("li")
+                    var checkbox = document.createElement("input")
+                    checkbox.type = "checkbox";
+                    checkbox.className = "ck"
+                    li.appendChild(checkbox)
+
+                    var input = document.createElement("input")
+                    input.id = "zhi"
+                    input.className = "up"
+                    input.value = this.value
+                    li.appendChild(input)
+
+                    var button = document.createElement("button")
+                    button.innerHTML = "删除"
+                    button.className = "btn"
+                    li.appendChild(button)
+
+
+                    ulDom.appendChild(li)
+                    this.value = ''
+                    db()
+                }
+            }
+            del()
+            gx()
+        }
+
+        //实时更新
+        function ssgx() {
+            var boxs = document.querySelectorAll(".ck")
+            boxs.forEach((x) => {
+                x.addEventListener("click", function () {
+                    span.forEach((e) => {
+                        if (e.className.includes("b")) {
+                            if (e.className.includes("all")) {
+
+                            } else {
+                                if (x.checked) {
+                                    x.parentNode.style.display = "none"
+
+                                } else {
+                                    x.parentNode.style.display = "none"
+                                }
+                            }
+                        }
+                    })
+                })
+            })
+        }
+        ssgx()
+
+
+
+        //改变颜色
+        function changeColor() {
+            var boxs = document.querySelectorAll(".ck")
+            boxs.forEach((e) => {
+                var boxs = document.querySelectorAll(".ck")
+                if (e.checked) {
+                    e.parentNode.children[1].className = "active"
+                    e.parentNode.children[1].setAttribute("readonly", "readonly")
+                }
+                e.onclick = function () {
+                    if (e.checked) {
+                        e.parentNode.children[1].classList.add("active")
+                        e.parentNode.children[1].setAttribute("readonly", "readonly")
+
+                    } else {
+                        e.parentNode.children[1].classList.remove("active")
+                        e.parentNode.children[1].classList.add("up")
+                        e.parentNode.children[1].removeAttribute("readonly")
+                    }
+                }
+            })
+        }
+
+        //完成后颜色变灰，删除线
+        setInterval(() => {
+            var ins = document.querySelectorAll(".text input")
+            ins.forEach((e) => {
+                e.onkeydown = (a) => {
+                    if (a.key == "Enter") {
+                        e.blur();
+                        db()
+                        e.style.border = "none"
+                    }
+                }
+            })
+            changeColor();
+        }, 0)
+
+
+
+        //删除事项
+        function del() {
+            var btnDoms = document.querySelectorAll("button")
+            var liDoms = document.querySelectorAll("li")
+            btnDoms.forEach((e, i) => {
+                e.onclick = function () {
+                    if (e) {
+                        e.parentNode.parentNode.removeChild(e.parentNode)
+                    }
+                    gx()
+                }
+            },)
+        }
+        del()
+
+
+        //序号
+        function gx() {
+            var zhi = document.querySelectorAll("#zhi")
+            zhi.forEach((e, i) => {
+                function isN(value) {
+                    var reg = /\d/;
+                    return reg.test(e.value);
+                }
+                if (!isN()) {
+                    e.value = (i + 1) + "." + e.value
+                } else {
+                    var x = e.value.split('')
+                    x.splice(0, 1)
+                    e.value = (i + 1) + x.join("")
+                }
+            })
+        }
+        gx()
+
+        // 双击
+        function db() {
+            var zhi = document.querySelectorAll("#zhi")
+            zhi.forEach((e) => {
+                e.setAttribute("readonly", "readonly")
+                e.ondblclick = function () {
+                    if (e.className.includes("active")) {
+
+                    } else {
+                        e.style.border = "1px solid black"
+                    }
+                    e.removeAttribute("readonly")
+                }
+                e.onmouseout = function () {
+                    e.setAttribute("readonly", "readonly")
+                    e.style.border = "none"
+                }
+            })
+        }
+        db()
+    </script>
+
+</body>
+
+</html>

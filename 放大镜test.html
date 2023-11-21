@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="stage">
+        <div class="btn">
+            <button>一</button>
+            <button>二</button>
+            <button>三</button>
+        </div>
+        <div class="orgin">
+            <img src="./img/big1.jpg" alt="">
+            <div class="mask">
+                <div class="zoom"></div>
+            </div>
+        </div>
+
+    </div>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: linear-gradient(to right, #83f5f5, #86aef8);
+        }
+
+        .stage {
+            height: 100vh;
+            /* overflow: hidden; */
+            display: flex;
+            /* flex-direction: column; */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn {
+            margin: 10px;
+            width: 600px;
+            display: flex;
+            justify-content: center;
+        }
+
+        button {
+            width: 50px;
+            height: 50px;
+            margin: 30px;
+            background-color: gray;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 0 5px 1px rgb(25, 24, 24);
+        }
+
+        .orgin {
+            width: 600px;
+            position: relative;
+            cursor: move;
+            margin-right: 20px;
+        }
+
+        img {
+            width: 600px;
+            display: block;
+            border-radius: 15px;
+            box-shadow: 0 0 10px 1px gray;
+
+        }
+
+        .stage .zoom {
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            background-image: url("./img/big1.jpg");
+            background-size: 500% auto;
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            display: none;
+
+        }
+
+        .mask {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            border-radius: 15px;
+            top: 0;
+            left: 0;
+        }
+    </style>
+    <script>
+        var orginDom = document.querySelector(".orgin");
+        var maskDom = document.querySelector(".mask");
+        var zoomDom = document.querySelector(".zoom");
+        var btnDom = document.querySelectorAll("button");
+        var currentActive = 0;
+
+        for (var i = 0; i < btnDom.length; i++) {
+            btnDom[i].index = i
+            var num = 2
+
+            function changeSize() {
+                orginDom.onmousemove = function (event) {
+                    // 鼠标的位置
+                    var mouseX = event.pageX - orginDom.offsetLeft;
+                    var mouseY = event.pageY - orginDom.offsetTop;
+                    // mask的位置
+                    var maskX = mouseX - 100;
+                    var maskY = mouseY - 100;
+                    // 不要让mask超出范围
+                    maskX = maskX < 0 ? 0 : maskX
+                    maskX = maskX > 600 - 200 ? 600 - 200 : maskX
+
+                    maskY = maskY < 0 ? 0 : maskY
+                    maskY = maskY > 1066 - 200 ? 1066 - 200 : maskY
+
+                    // 改变mask位置
+                    maskDom.style.left = maskX + "px";
+                    maskDom.style.top = maskY + "px";
+
+                    // 改变背景图片位置
+                    var o = currentActive + 2
+                    var p = currentActive * currentActive
+                    if (p < 2) {
+                        zoomDom.style.backgroundSize = 540 + p * 250 + "%"
+                    } else {
+                        zoomDom.style.backgroundSize = 540 + 500 + "%"
+
+                    }
+                    zoomDom.style.backgroundPositionX = maskX * -o + "px";
+                    zoomDom.style.backgroundPositionY = maskY * -o + "px";
+                    zoomDom.style.display = "block"
+                    maskDom.style.boxShadow = "0 0 2px 0 gray"
+                }
+            }
+            changeSize()
+
+            //初始化
+            btnDom[0].style.backgroundColor = "black"
+            btnDom[0].style.boxShadow = "0 0 10px 0 gray"
+
+
+            //点击切换放大倍数
+            btnDom[i].onclick = function () {
+                currentActive = this.index;
+                for (var j = 0; j < btnDom.length; j++) {
+                    btnDom[j].style.backgroundColor = "gray"
+                    btnDom[j].style.boxShadow = "0 0 10px 0 gray"
+                }
+                btnDom[this.index].style.backgroundColor = "black"
+                btnDom[this.index].style.boxShadow = "0 0 10px 0 black"
+            }
+
+            //移出消失
+            orginDom.onmouseout = function () {
+                zoomDom.style.display = "none";
+                maskDom.style.boxShadow = "none"
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+body {
+  background-color: #f5f5f5;
+}
+.todos {
+  width: 600px;
+  margin: 100px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 0 10px 0 black;
+  background-color: #fff;
+}
+.todos h1 {
+  color: darkred;
+  opacity: 0.52;
+  font-size: 80px;
+  font-weight: 2000;
+  text-align: center;
+}
+.todos h1:hover {
+  cursor: default;
+}
+.todos .in {
+  margin: 0 auto;
+  width: 500px;
+  display: flex;
+}
+.todos .in button.inbtn {
+  background-color: white;
+  border: none;
+  width: 100px;
+  height: 60px;
+  font-size: 40px;
+}
+.todos .in button.inbtn:hover {
+  cursor: pointer;
+}
+.todos .in input.inipt {
+  background-color: white;
+  width: 400px;
+  height: 60px;
+  font-size: 25px;
+  font-weight: lighter;
+}
+.todos .in input.inipt:placeholder-shown {
+  font-style: oblique;
+}
+.todos .outList {
+  width: 500px;
+  background-color: white;
+}
+.todos .outList ul {
+  font-size: 25px;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.todos .outList ul li {
+  margin: 0 auto;
+  height: 50px;
+  width: 400px;
+  border-top: 1px solid #c2c2c2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.todos .outList ul li .title {
+  width: 350px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.todos .outList ul li .checkBox {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  box-shadow: 0 0 3px 0 gray inset;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.todos .outList ul li:last-child {
+  border-top: 0px solid black;
+}
+.todos .toolList {
+  display: flex;
+  width: 500px;
+  height: 40px;
+  line-height: 40px;
+  background-color: white;
+  justify-content: space-around;
+  color: #737373;
+}
+.todos .toolList .residue:hover {
+  cursor: default;
+}
+.todos .toolList .classify .allIpt,
+.todos .toolList .classify .active,
+.todos .toolList .classify .finish {
+  background-color: white;
+  border: none;
+  color: #737373;
+  transition: all 0.5s;
+}
+.todos .toolList .classify .allIpt:hover,
+.todos .toolList .classify .active:hover,
+.todos .toolList .classify .finish:hover {
+  cursor: pointer;
+}
+/*# sourceMappingURL=./index.css.map */

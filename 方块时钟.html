@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: calc(100vw / 375)">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>方块时钟</title>
+    <script src="./nums.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f1ede4;
+        }
+
+        ul {
+            width: 72px;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        li {
+            width: 20px;
+            height: 20px;
+            margin: 1px;
+            box-sizing: border-box;
+            transition: all 0.3s;
+        }
+
+        ul:nth-child(even) {
+            margin-right: 50px;
+        }
+
+        .active {
+            background-color: rgb(0, 0, 0);
+            border: 1px solid #e3d2d2;
+            box-sizing: border-box;
+            padding: 1px;
+
+        }
+
+        @media (max-width: 786px) {
+            .box {
+                height: 100vh;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                background-color: #f1ede4;
+                margin: 0 auto;
+
+            }
+
+            ul {
+                width: 30px;
+                list-style: none;
+                display: flex;
+                flex-wrap: wrap;
+                padding: 0;
+            }
+
+            li {
+                width: 8px;
+                height: 8px;
+                margin: 1px;
+                box-sizing: border-box;
+                transition: all 0.3s;
+            }
+
+            ul:nth-child(even) {
+                margin-right: 50px;
+            }
+
+            .active {
+                background-color: rgb(0, 0, 0);
+                border: 1px solid #e3d2d2;
+                box-sizing: border-box;
+                padding: 1px;
+
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+
+    </div>
+
+    <script>
+        //获取父盒子
+        var boxDom = document.querySelector(".box");
+
+        // 生成小方块   6ul * 15li
+        for (var i = 0; i < 6; i++) {
+            var ulDom = document.createElement("ul");
+            for (var j = 0; j < 15; j++) {
+                var liDom = document.createElement("li");
+                ulDom.appendChild(liDom);
+            }
+            boxDom.appendChild(ulDom);
+        }
+
+
+        //获取ul
+        var ulsDom = document.querySelectorAll("ul");
+
+        //把数字变成字符串
+        function nbsrt(n) {
+            if (n < 10) {
+                return "0" + n
+            } else { return String(n) }
+        }
+
+        //高亮li，生成数字形状 n为要生成的数字
+        function showNum(n, ulDom) {
+            //i 为行数
+            for (var i = 0; i < nums[n].length; i++) {
+                //j 为列
+                for (var j = 0; j < nums[n][i].length; j++) {
+                    if (nums[n][i][j]) {
+                        ulDom.querySelectorAll("li")[3 * i + j].className = "active";
+                    } else {
+                        ulDom.querySelectorAll("li")[3 * i + j].className = "";
+                    }
+                }
+            }
+        }
+
+        //获取时间
+        function start() {
+            var now = new Date();
+            var hh = nbsrt(now.getHours());
+            var mm = nbsrt(now.getMinutes());
+            var ss = nbsrt(now.getSeconds());
+            var str = hh + mm + ss;
+            ulsDom.forEach(function (ele, i) {
+                showNum(str[i], ele);
+            });
+        }
+
+        //定时器
+        start()
+        setInterval(start, 1000);
+
+    </script>
+</body>
+
+</html>

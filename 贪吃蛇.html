@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            width: 1000px;
+            margin: 0 auto;
+            background-image: linear-gradient(to right, #ffa9a4, #ad96ff);
+            text-align: center;
+        }
+
+        #score {
+            color: rgb(246, 2, 2);
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        /*游戏面板：居中、父元素设置成相对点*/
+        .board {
+            height: 500px;
+            background-color: black;
+            border: 2px solid white;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /*豆子：显示为区块、圆角、z轴、绝对定位*/
+        .board span {
+            width: 20px;
+            height: 20px;
+            background-color: yellow;
+            display: block;
+            border-radius: 50%;
+            z-index: 0;
+            position: absolute;
+        }
+
+        /*蛇：圆角、绝对定位、z轴*/
+        .board div {
+            width: 20px;
+            height: 20px;
+            background-color: rgb(255, 255, 255);
+            /* border-radius: 50%; */
+            box-shadow: 0 0 3px 0 rgb(148, 139, 228);
+            box-sizing: border-box;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .board div:nth-child(1) {
+            border-radius: 2px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn {
+            margin: 30px;
+            background-image: linear-gradient(to right, #f58983, #f8cb86);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 5px 0 #000000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <h1>贪吃蛇</h1>
+        <h3>当前的分数为<span id="score">0</span>分</h3>
+    </div>
+    <div class="board"></div>
+    <div class="nav">
+        <div class="btn" onclick="start()">开始</div>
+        <div class="btn" onclick="pause()">暂停</div>
+        <div class="btn" onclick="reset()">重置</div>
+    </div>
+
+    <script>
+        var snakeArr = []
+        var isPause = false //暂停
+        var snakeSize = 5
+        var direct = "right" //初始方向
+        var speed = 150
+        var score, timer, board, bean /*游戏初始分数显示区，定时器，面板，豆*/
+
+        //初始化
+        function onload() {
+            board = document.querySelector(".board")
+            score = document.querySelector("#score")
+
+            //造蛇
+            createSnack()
+            //造豆
+            createBean()
+            //监听键盘
+            keyListener()
+        }
+        onload()
+
+        //制造蛇
+        function createSnack() {
+            for (var i = 0; i < snakeSize; i++) {
+                var snake = document.createElement("div");
+                if (i == 0) {
+                    snake.style.backgroundColor = "#b899f3"
+                }
+                snakeArr.push(snake);
+                snake.style.left = (snakeSize - i - 1) * 20 + "px";
+
+                board.appendChild(snake)
+            }
+        }
+
+        //造豆子
+        function createBean() {
+            if (bean) {
+                board.removeChild(bean);
+            }
+            bean = document.createElement("span");
+            var x = null
+            var y = null
+            randomXY();
+            //随机坐标
+            function randomXY() {
+                x = parseInt("" + (Math.random() * (1000 / 20))) * 20;
+                y = parseInt("" + (Math.random() * (500 / 20))) * 20;
+
+                for (var i = 0; i < snakeArr.length; i++) {
+                    //如果蛇与豆子坐标冲突
+                    if (snakeArr[i].offsetLeft === x) {
+                        if (snakeArr[i].offsetTop === y) {
+                            randomXY();
+                            break;
+                        }
+                    }
+                }
+            }
+            //赋值
+            bean.style.left = x + "px"
+            bean.style.top = y + "px"
+            //加入地图
+            board.appendChild(bean);
+        }
+
+        //监听键盘
+        function keyListener() {
+            document.onkeydown = function (event) {
+                var oEvent = event || window.event;
+                switch (oEvent.keyCode) {
+                    //     按了左键：当方向不为右，方向改为左
+                    case 37:
+                        if (direct !== "right") {
+                            direct = "left"
+                        }
+                        break;
+                    case 38:
+                        //     按了上键：当方向不为下，方向改为上
+                        if (direct !== "down") {
+                            direct = "up";
+                        }
+                        break;
+                    case 39:
+                        //     按了右键：当方向不为左，方向改为右
+                        if (direct !== "left") {
+                            direct = "right";
+                        }
+                        break;
+                    case 40:
+                        //     按了下键：当方向不为上，方向改为下
+                        if (direct !== "up") {
+                            direct = "down";
+                        }
+                        break;
+                    case 32:
+                        if (!isPause) {
+                            pause();
+                        } else {
+                            start();
+                        }
+                        isPause = !isPause
+                        break;
+                }
+            }
+        }
+
+        //开始
+        function start() {
+            clearInterval(timer)
+            timer = setInterval(function () {
+                move();
+                isHit();
+                isEat();
+            }, speed)
+        }
+
+        //移动
+        function move() {
+            //     获取蛇头左距离和上距离
+            var hLeft = snakeArr[0].offsetLeft
+            var hTop = snakeArr[0].offsetTop
+
+            switch (direct) {
+                case "left":
+                    if (hLeft <= 0) {
+                        gameover();
+                        return;
+                    }
+                    //蛇身移动
+                    snakeBodyMove();
+                    //蛇头移动
+                    snakeArr[0].style.left = hLeft - 20 + 'px'
+                    break;
+                case "up":
+                    if (hTop <= 0) {
+                        gameover();
+                        return;
+                    }
+                    snakeBodyMove()
+                    snakeArr[0].style.top = hTop - 20 + 'px'
+                    break;
+                case "right":
+                    if (hLeft >= 1000 - 20) {
+                        gameover();
+                        return;
+                    }
+                    snakeBodyMove()
+                    snakeArr[0].style.left = hLeft + 20 + 'px'
+                    break;
+                case "down":
+                    if (hTop >= 500 - 20) {
+                        gameover();
+                        return;
+                    }
+                    snakeBodyMove()
+                    snakeArr[0].style.top = hTop + 20 + 'px'
+                    break;
+            }
+
+            //蛇身移动
+            function snakeBodyMove() {
+                for (var i = snakeArr.length - 1; i > 0; i--) {
+                    snakeArr[i].style.left = snakeArr[i - 1].style.left
+                    snakeArr[i].style.top = snakeArr[i - 1].style.top
+                }
+            }
+        }
+
+        //是否撞到自己
+        function isHit() {
+            for (var i = 1; i < snakeArr.length; i++) {
+                if (snakeArr[0].offsetLeft == snakeArr[i].offsetLeft) {
+                    if (snakeArr[0].offsetTop === snakeArr[i].offsetTop) {
+                        gameover();
+                        break;
+                    }
+                }
+            }
+        }
+
+        //吃豆子
+        function isEat() {
+            if (snakeArr[0].offsetLeft == bean.offsetLeft) {
+                if (snakeArr[0].offsetTop === bean.offsetTop) {
+                    score.innerText = parseInt(score.innerText) + 1
+                    var snake = document.createElement("div")
+                    //   新蛇关节的出生坐标就是被吃掉豆子的坐标
+                    snake.style.left = bean.style.left
+                    snake.style.top = bean.style.top
+
+                    snakeArr.push(snake)
+                    board.appendChild(snake);
+
+                    //造豆
+                    createBean()
+                }
+            }
+        }
+
+
+        //游戏结束
+        function gameover() {
+            clearInterval(timer);
+            alert("GAME OVER !!")
+        }
+
+        //暂停
+        function pause() {
+            clearInterval(timer)
+        }
+
+        //重置
+        function reset() {
+            location.reload()
+        }
+
+
+
+    </script>
+</body>
+
+</html>

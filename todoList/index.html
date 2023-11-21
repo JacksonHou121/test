@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/Default.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <style>
+        body {
+            background-image: linear-gradient(to right, #a3d4f1, rgb(123, 141, 245));
+        }
+    </style>
+</head>
+
+<body>
+    <div class="todos">
+        <h1>TodoList</h1>
+        <div class="in">
+            <button class="inbtn">👇</button>
+            <input class="inipt" type="text" placeholder="需要做什么?">
+        </div>
+        <div class="outList">
+            <ul></ul>
+        </div>
+        <div class="toolList">
+            <div class="residue">代办事项剩余0件</div>
+            <div class="classify">
+                <button class="allIpt">所有</button>
+                <button class="active">活动</button>
+                <button class="finish">已完成</button>
+            </div>
+            <div class="clearFinish">清除已完成</div>
+        </div>
+    </div>
+    <script>
+        //获取
+        var ulDom = document.querySelector('.outList ul')
+        var nookNum = 0
+        var lis, btns
+
+        document.onkeydown = function (event) {
+            // console.log(event.keyCode); 回车 -> 13
+            if (event.keyCode == 13) {
+                var iniptDom = document.querySelector('.inipt')
+                if (iniptDom.value != '') {
+                    var liDom = document.createElement('li')
+                    var titleDom = document.createElement('div')
+                    var btnDom = document.createElement('div')
+                    var numDom = document.querySelector('.residue')
+                    nookNum++
+                    numDom.innerText = '待办事项剩余' + nookNum + '件'
+                    titleDom.className = 'title'
+                    liDom.className = 'allTodos'
+                    liDom.classList.add('.all')
+                    liDom.classList.add('.activeThing')
+                    btnDom.className = 'checkBox'
+                    titleDom.innerText = iniptDom.value
+                    liDom.appendChild(titleDom)
+                    liDom.appendChild(btnDom)
+                    ulDom.appendChild(liDom)
+                    iniptDom.value = ''
+                    lis = document.querySelectorAll('li')
+                    btns = document.querySelectorAll('.checkBox')
+                    // console.log(lis[0].innerHTML, btns);
+                }
+                btns.forEach(function (ele, i) {
+                    var isTrue = true
+                    ele.onclick = function () {
+                        if (isTrue) {
+                            isTrue = false
+                            ele.style.backgroundImage = 'url(./对勾.png)'
+                            nookNum--
+                            numDom.innerText = '待办事项剩余' + nookNum + '件'
+                            lis[i].style.textDecoration = 'line-through'
+                            lis[i].style.color = '#828282'
+                            lis[i].classList.add('.finishThing')
+                            lis[i].classList.remove('.activeThing')
+                        } else {
+                            isTrue = true
+                            ele.style.backgroundImage = ''
+                            nookNum++
+                            numDom.innerText = '待办事项剩余' + nookNum + '件'
+                            lis[i].style.textDecoration = ''
+                            lis[i].style.color = 'black'
+                            lis[i].classList.remove('.finishThing')
+                            lis[i].classList.add('.activeThing')
+                        }
+                        // ele.style.border = '1px solid red'
+                    }
+                })
+                // console.log(allTodos);
+            }
+        }
+
+        var allDom = document.querySelector('.allIpt')
+        var activeDom = document.querySelector('.active')
+        var finishDom = document.querySelector('.finish')
+
+        allDom.onclick = function () {
+            // console.log('all');
+            lis.forEach(function (ele) {
+                // console.log(ele.className);
+                if (ele.className == 'allTodos .all' || ele.className == 'allTodos .all .finishThing' || ele.className == 'allTodos .all .activeThing') {
+                    ele.style.display = 'flex'
+                }
+            })
+        }
+
+        activeDom.onclick = function () {
+            // console.log('active');
+            lis.forEach(function (ele) {
+                // console.log(ele.className);
+                if (ele.className == 'allTodos .all .finishThing') {
+                    ele.style.display = 'none'
+                } else {
+                    ele.style.display = 'flex'
+                }
+            })
+        }
+
+        finishDom.onclick = function () {
+            // console.log('finish');
+            lis.forEach(function (ele) {
+                // console.log(ele.className);
+                if (ele.className == 'allTodos .all .activeThing') {
+                    ele.style.display = 'none'
+                } else {
+                    ele.style.display = 'flex'
+                }
+            })
+        }
+
+        var clearFinishDom = document.querySelector('.clearFinish')
+        clearFinishDom.onclick = function () {
+            var liDom = document.querySelectorAll('li')
+            liDom.forEach(function (ele) {
+                if (ele.className == 'allTodos .all .finishThing') {
+                    ele.remove()
+                }
+            })
+        }
+
+    </script>
+</body>
+
+</html>
