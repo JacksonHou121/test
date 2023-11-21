@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-image: linear-gradient(to right, #c6edff, #b1fb86, #f1a0a3);
+        }
+
+        #app {
+            width: 480px;
+            height: 480px;
+            box-shadow: 0 0 3px 3px black;
+            margin: 200px auto;
+        }
+
+        #app #row {
+            display: flex;
+        }
+
+        .item {
+            width: 120px;
+            height: 120px;
+            border: 2px solid white;
+            box-sizing: border-box;
+        }
+
+        .item img {
+            width: 116px;
+            height: 116px;
+            opacity: 0.8;
+            transition: all 0.5s;
+        }
+
+        .item img:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <div class="row_1" id="row">
+            <div class="item" id="col_11"></div>
+            <div class="item" id="col_12"></div>
+            <div class="item" id="col_13"></div>
+            <div class="item" id="col_14"></div>
+        </div>
+        <div class="row_2" id="row">
+            <div class="item" id="col_21"></div>
+            <div class="item" id="col_22"></div>
+            <div class="item" id="col_23"></div>
+            <div class="item" id="col_24"></div>
+        </div>
+        <div class="row_3" id="row">
+            <div class="item" id="col_31"></div>
+            <div class="item" id="col_32"></div>
+            <div class="item" id="col_33"></div>
+            <div class="item" id="col_34"></div>
+        </div>
+        <div class="row_4" id="row">
+            <div class="item" id="col_41"></div>
+            <div class="item" id="col_42"></div>
+            <div class="item" id="col_43"></div>
+            <div class="item" id="col_44"></div>
+        </div> -->
+    </div>
+
+    <script>
+        //随机打乱图片
+        //创建一个对象来方便后期遍历
+        var appDom = document.querySelector('#app')
+        function Game(appDom) {
+            this.app = appDom;
+            this.arr = '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16'.split(",")
+            this.row = 4
+            this.col = 4
+        }
+        //新建一个打乱下标的函数
+        Game.prototype.randomIndex = function (length) {
+            return Math.floor(Math.random() * length)
+        }
+
+
+
+        //随机打乱图片
+        Game.prototype.random = function () {
+            var str = ''
+            for (var i = 1; i <= this.row; i++) {
+                str += '<div class = "row_' + i + '"id = "row">'
+                for (var j = 1; j <= this.col; j++) {
+                    var index = this.randomIndex(this.arr.length)
+                    var ind = this.arr.splice(index, 1)
+
+                    if (ind == 16) {
+                        //如果是16则输出空白
+                        str += '<div class="item" id="col_' + i + "_" + j + '"><img data-index=' + ind + ' class="empty" src="./images/' + ind + '.png" alt=""></div>';
+                    } else {
+                        //如果不是则输出下标所代表的图片
+                        str += '<div class="item" id="col_' + i + "_" + j + '"><img  data-index=' + ind + '  src="./images/' + ind + '.png" alt=""></div>';
+                    }
+                }
+                str += '</div>'
+            }
+            this.app.innerHTML = str
+        }
+
+
+        //点击事件
+        Game.prototype.addClick = function () {
+            //待会补入src中的内容
+            var _this = this
+
+            //事件委托
+            this.app.onclick = function (event) {
+                if (event.target.nodeName == 'IMG') {
+                    var targetRow = Number(event.target.parentElement.id.split("_")[1]);
+                    var targetCol = Number(event.target.parentElement.id.split("_")[2])
+
+                    //获取空白图片的 行/列
+                    var emptyDom = document.querySelector(".empty")
+
+
+                    var emptyRow = Number(emptyDom.parentElement.id.split("_")[1])
+                    var emptyCol = Number(emptyDom.parentElement.id.split("_")[2])
+
+
+                    //判断空白图是否被点击
+                    if (targetRow == emptyRow) {
+                        if (targetCol + 1 == emptyCol || targetCol - 1 == emptyCol) {
+                            _this.changeImg(event.target, emptyDom)
+                        }
+                    }
+                    if (targetCol == emptyCol) {
+                        if (targetRow + 1 == emptyRow || targetRow - 1 == emptyRow) {
+                            _this.changeImg(event.target, emptyDom)
+                        }
+                    }
+
+                }
+            }
+        }
+
+        //更改img方法
+        Game.prototype.changeImg = function (target, empty) {
+            var c = target.src
+            target.src = empty.src
+            empty.src = c
+
+            target.className = 'empty'
+            empty.className = ''
+
+            var number = target.getAttribute('data-index')
+            target.setAttribute('data-index', empty.getAttribute('data-index'))
+            empty.setAttribute('data-index', number)
+            //调用游戏结束函数
+            this.isOver()
+        }
+
+        //创建游戏结束函数
+        Game.prototype.isOver = function () {
+            var imgs = document.querySelectorAll('img');
+
+            var imgStr = ''
+            for (var i = 0; i < imgs.length; i++) {
+                imgStr += imgs[i].getAttribute('data-index') + ','
+            }
+
+            if (imgStr == '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16') {
+                alert("游戏通关")
+            }
+        }
+
+
+
+        Game.prototype.init = function () {
+            this.random()
+            this.addClick()
+        }
+
+        var game = new Game(appDom)
+        game.init()
+    </script>
+</body>
+
+</html>
