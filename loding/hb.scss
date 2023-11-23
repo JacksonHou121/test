@@ -1,0 +1,118 @@
+   body {
+       background-image: linear-gradient(to right, #ffa9a4, #ad96ff);
+       height: 100vh;
+       padding: 0;
+       margin: 0;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+
+   }
+
+   $lodingWhite: 350px;
+   $dotWhite: 20px;
+   $n: 36;
+   $pDeg: 360deg/$n ;
+   $time: 2s;
+
+   .loding {
+       width: $lodingWhite;
+       height: $lodingWhite;
+       border-radius: 50%;
+       //    border: 1px solid white;
+       position: relative;
+
+       .dot {
+           width: $dotWhite;
+           height: $dotWhite;
+           //    background: black;
+           position: absolute;
+           top: 0;
+           left: 50%;
+           margin-left: -$dotWhite/2;
+           margin-top: -$dotWhite/2;
+           perspective: 70px;
+           transform-style: preserve-3d;
+           transform-origin: center $lodingWhite / 2 + $dotWhite / 2;
+
+
+
+           @for $i from 0 through $n {
+               &:nth-child(#{$i}) {
+                   transform: rotate($pDeg*$i);
+
+                   &::before,
+                   &::after {
+                       animation-delay: -$time / $n * ($i - 1) * 6;
+                   }
+               }
+           }
+
+           &::before,
+           &::after {
+               content: '';
+               position: absolute;
+               width: 100%;
+               height: 100%;
+               border-radius: 50%;
+           }
+
+           &::before {
+               background: black;
+               top: -100%;
+
+               animation: rotation-black $time infinite;
+
+               @keyframes rotation-black {
+                   0% {
+                       animation-timing-function: ease-in;
+                   }
+
+                   25% {
+                       transform: translate3d(0, 100%, $dotWhite);
+                       animation-timing-function: ease-out;
+                   }
+
+                   50% {
+                       transform: translate3d(0, 200%, 0);
+                       animation-timing-function: ease-in;
+                   }
+
+                   75% {
+                       transform: translate3d(0, 100%, -$dotWhite);
+                       animation-timing-function: ease-out;
+                   }
+               }
+           }
+
+
+           &::after {
+               background: white;
+               top: 100%;
+               animation: rotation-white $time infinite;
+
+               @keyframes rotation-white {
+                   0% {
+                       animation-timing-function: ease-in;
+                   }
+
+                   25% {
+                       transform: translate3d(0, -100%, -$dotWhite);
+                       animation-timing-function: ease-out;
+                   }
+
+                   50% {
+                       transform: translate3d(0, -200%, 0);
+                       animation-timing-function: ease-in;
+                   }
+
+                   75% {
+                       transform: translate3d(0, -100%, $dotWhite);
+                       animation-timing-function: ease-out;
+                   }
+               }
+
+
+           }
+       }
+   }
