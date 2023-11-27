@@ -9,23 +9,23 @@ body {
 }
 
 .loding {
-  width: 350px;
-  height: 350px;
+  width: 380px;
+  height: 380px;
   border-radius: 50%;
   position: relative;
 }
 
 .loding .dot {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   position: absolute;
   top: 0;
   left: 50%;
-  margin-left: -10px;
-  margin-top: -10px;
+  margin-left: -12.5px;
+  margin-top: -12.5px;
   perspective: 70px;
   transform-style: preserve-3d;
-  transform-origin: center 185px;
+  transform-origin: center 202.5px;
 }
 
 .loding .dot:nth-child(0) {
@@ -343,7 +343,7 @@ body {
     animation-timing-function: ease-in;
   }
   25% {
-    transform: translate3d(0, 100%, 20px);
+    transform: translate3d(0, 100%, 25px);
     animation-timing-function: ease-out;
   }
   50% {
@@ -351,7 +351,7 @@ body {
     animation-timing-function: ease-in;
   }
   75% {
-    transform: translate3d(0, 100%, -20px);
+    transform: translate3d(0, 100%, -25px);
     animation-timing-function: ease-out;
   }
 }
@@ -367,7 +367,7 @@ body {
     animation-timing-function: ease-in;
   }
   25% {
-    transform: translate3d(0, -100%, -20px);
+    transform: translate3d(0, -100%, -25px);
     animation-timing-function: ease-out;
   }
   50% {
@@ -375,7 +375,7 @@ body {
     animation-timing-function: ease-in;
   }
   75% {
-    transform: translate3d(0, -100%, 20px);
+    transform: translate3d(0, -100%, 25px);
     animation-timing-function: ease-out;
   }
 }
